@@ -39,7 +39,7 @@ function Counter({initialCount}) {
 
 If your update function returns the exact same value as the current state, **the subsequent rerender will be skipped completely**.
 
-Note
+**Note:**  
 
 Unlike the `setState` method found in class components, `useState` **does not automatically merge update objects**. You can replicate this behavior by combining the **function updater form with object spread syntax**:
 
@@ -52,3 +52,14 @@ setState(prevState => {
 ```
 
 Another option is `useReducer`, which is more suited for managing state objects that contain multiple sub-values.
+
+### Lazy initial state
+
+The `initialState` argument is the state used during the initial render. In subsequent renders, it is disregarded. If the initial state is the result of an expensive computation, you may provide a function instead, which will be executed only on the initial render:
+
+```js
+const [state, setState] = useState(() => {
+  const initialState = someExpensiveComputation(props);
+  return initialState;
+});
+```
