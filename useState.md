@@ -63,3 +63,10 @@ const [state, setState] = useState(() => {
   return initialState;
 });
 ```
+
+### Bailing out of a state update
+
+If you update a State Hook to the same value as the current state, React will **bail out without rendering the children or firing effects**. (React uses the `Object.is` comparison algorithm.)
+
+Note that React may still need to render that specific component again before bailing out. That shouldn’t be a concern because React won’t unnecessarily go “deeper” into the tree. If you’re doing expensive calculations while rendering, you can optimize them with `useMemo`.
+
