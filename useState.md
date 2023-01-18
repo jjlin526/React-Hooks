@@ -38,3 +38,17 @@ function Counter({initialCount}) {
 * But the “Reset” button uses the **normal form**, because it always sets the count back to the initial value.
 
 If your update function returns the exact same value as the current state, **the subsequent rerender will be skipped completely**.
+
+Note
+
+Unlike the `setState` method found in class components, `useState` **does not automatically merge update objects**. You can replicate this behavior by combining the **function updater form with object spread syntax**:
+
+```js
+const [state, setState] = useState({});
+setState(prevState => {
+  // Object.assign would also work
+  return {...prevState, ...updatedValues};
+});
+```
+
+Another option is `useReducer`, which is more suited for managing state objects that contain multiple sub-values.
