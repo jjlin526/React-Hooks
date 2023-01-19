@@ -28,6 +28,16 @@ A **memory leak** is a type of resource leak that occurs when a computer program
 
 The clean-up function runs before the component is removed from the UI to prevent memory leaks. Additionally, if a component renders multiple times (as they typically do), **the previous effect is cleaned up before executing the next effect**. In our example, this means a new subscription is created on every update. 
 
+### Timing of effects
+
+### componentDidMount and componentDidUpdate vs. useEffect
+
+`componentDidMount` and `componentDidUpdate` are lifecycle methods in React class components that are called at specific points during the component's lifecycle. `componentDidMount` is called immediately after the component is added to the DOM and `componentDidUpdate` is called every time a component updates, which includes re-rendering.
+
+On the other hand, `useEffect` is a Hook in React functional components that allows you to synchronize a component with an external system or some other state or props. The `useEffect` runs after the layout and paint. It’s better suited for side effects like subscriptions and event handlers, because it allows the browser to update the screen before running the effect.
+
+This behavior is different from `componentDidMount` and `componentDidUpdate` because `useEffect` is more flexible and it allows you to control when the effect should run by providing a list of dependencies, unlike `componentDidMount` and `componentDidUpdate` which are called automatically when the component mounts or updates.
+
 ### Conditionally firing an effect
 
 The default behavior for effects is to fire the effect after every completed render. That way an effect is always recreated if one of its dependencies changes.
