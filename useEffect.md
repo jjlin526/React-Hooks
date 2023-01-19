@@ -30,6 +30,18 @@ The clean-up function runs before the component is removed from the UI to preven
 
 ### Timing of effects
 
+Unlike `componentDidMount` and `componentDidUpdate`, the function passed to `useEffect` fires **after layout and paint**, during a **deferred event**. This makes it suitable for the many common side effects, like setting up subscriptions and event handlers, because most types of work shouldn’t block the browser from updating the screen.
+
+However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called `useLayoutEffect`. It has the same signature as `useEffect`, and only differs in when it is fired.
+
+Additionally, starting in React 18, the function passed to `useEffect` will fire synchronously before layout and paint when it’s the result of a **discrete user input** such as a click, or when it’s the result of an **update wrapped in flushSync**. This behavior allows the result of the effect to be observed by the event system, or by the caller of `flushSync`.
+
+**Note:**  
+
+This **only affects the timing of when the function passed to `useEffect` is called** - updates scheduled inside these effects are still deferred. This is different than `useLayoutEffect`, which fires the function and processes the updates inside of it immediately.
+
+Even in cases where `useEffect` is deferred until after the browser has painted, it’s guaranteed to fire before any new renders. React will always flush a previous render’s effects before starting a new update.
+
 ### componentDidMount and componentDidUpdate vs. useEffect
 
 `componentDidMount` and `componentDidUpdate` are lifecycle methods in React class components that are called at specific points during the component's lifecycle. `componentDidMount` is called immediately after the component is added to the DOM and `componentDidUpdate` is called every time a component updates, which includes re-rendering.
