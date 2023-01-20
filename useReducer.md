@@ -22,3 +22,31 @@ An alternative to `useState`. Accepts a reducer of type `(state, action) => newS
 
 * `useReducer` is usually preferable to `useState` when you have **complex state logic** that **involves multiple sub-values** or when the **next state depends on the previous one**
 * `useReducer` also lets you optimize performance for components that trigger deep updates because you can **pass dispatch down instead of callbacks**
+
+### Counter example from useState section, rewritten to use a reducer
+
+```js
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
