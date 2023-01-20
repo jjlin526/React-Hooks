@@ -18,3 +18,7 @@ It returns an array containing the **current state and a dispatch function**. Th
 
 The state and dispatch are destructured from the array returned by the useReducer hook.
 
+An alternative to `useState`. Accepts a reducer of type `(state, action) => newState`, and returns the current state paired with a dispatch method. (If you’re familiar with Redux, you already know how this works.)
+
+* `useReducer` is usually preferable to `useState` when you have **complex state logic** that **involves multiple sub-values** or when the **next state depends on the previous one**
+* `useReducer` also lets you optimize performance for components that trigger deep updates because you can **pass dispatch down instead of callbacks**
