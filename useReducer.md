@@ -54,3 +54,16 @@ function Counter() {
 **Note:**  
 
 React guarantees that `dispatch` function identity is stable and won’t change on re-renders. This is why it’s safe to omit from the `useEffect` or `useCallback` dependency list.
+
+### Specifying the initial state
+
+There are two different ways to initialize `useReducer` state. You may choose either one depending on the use case. The simplest way is to pass the initial state as a second argument:
+
+```js
+const [state, dispatch] = useReducer(
+  reducer,
+  {count: initialCount}
+);
+```
+
+
