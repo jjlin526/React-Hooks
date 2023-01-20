@@ -50,3 +50,7 @@ function Counter() {
   );
 }
 ```
+
+**Note:**  
+
+React guarantees that `dispatch` function identity is stable and won’t change on re-renders. This is why it’s safe to omit from the `useEffect` or `useCallback` dependency list.
