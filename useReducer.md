@@ -66,4 +66,11 @@ const [state, dispatch] = useReducer(
 );
 ```
 
+**Note:**  
 
+Note
+
+React doesn’t use the `state = initialState` argument convention popularized by Redux. The initial value sometimes needs to depend on props and so is specified from the Hook call instead. If you feel strongly about this, you can call `useReducer(reducer, undefined, reducer)` to emulate the Redux behavior, but it’s not encouraged.
+
+
+ 
